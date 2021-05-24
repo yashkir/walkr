@@ -1,6 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<h1>Register</h1>
+
 <form action="{% url 'register' %}" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Register">
+  {% bootstrap_form form %}
   <input type="hidden" value="{{ next }}" name="next">
+  <button class="btn btn-primary" type="submit">Register</button>
 </form>
+
+<script>
+  $('.is-valid').removeClass('is-valid');
+</script>
+{% endblock %}
