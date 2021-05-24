@@ -129,3 +129,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+BOOTSTRAP4 = {
+    'success_css_class': '',
+}
