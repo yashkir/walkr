@@ -1,0 +1,6 @@
+<form action="{% url 'register' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Register">
+  <input type="hidden" value="{{ next }}" name="next">
+</form>
