@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.views import View
 
-# Create your views here.
+# Placeholder
+class Home(View):
+    def get(self, request):
+        from django.http import HttpResponse
+        return HttpResponse('<h1>Hit walks/ path</h1>')
