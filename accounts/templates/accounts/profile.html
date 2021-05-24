@@ -1,2 +1,11 @@
-<h1>{{ user.username }}</h1>
-<a href="{% url 'logout' %}">Log Out</a>
+{% extends 'base.html' %}
+{% block title %}
+Profile
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<h1>Profile: <span class="text-info">{{ user.username }}</span></h1>
+<a class="btn btn-primary" href="{% url 'logout' %}">Log Out</a>
+{% endblock %}
