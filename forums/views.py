@@ -4,9 +4,9 @@ from django.views.generic import ListView, DetailView
 from .models import Forum, Thread, Post
 
 
-class ForumsList(ListView):
+class ForumList(ListView):
     model = Forum
 
 
-class ForumsDetail(DetailView):
+class ForumDetail(DetailView):
     model = Forum
