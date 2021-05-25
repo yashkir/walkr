@@ -1,7 +1,8 @@
 from django.views import View
+from django.views.generic import ListView
 
-# Placeholder
-class Home(View):
-    def get(self, request):
-        from django.http import HttpResponse
-        return HttpResponse('<h1>Hit forums/ path</h1>')
+from .models import Forum, Thread, Post
+
+
+class ForumsList(ListView):
+    model = Forum
