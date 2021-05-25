@@ -6,5 +6,5 @@ urlpatterns = [
     path('', views.ForumList.as_view(), name='forums_home'),
     path('<int:pk>/', views.ForumDetail.as_view(), name='forums_detail'),
     path('threads/<int:pk>/', views.ThreadDetail.as_view(), name='threads_detail'),
-    path('threads/<int:thread_id>/post', views.PostCreate.as_view(), name='posts_create'),
+    path('threads/<int:thread_id>/posts', views.PostCreate.as_view(), name='posts_create'),
 ]
