@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -18,6 +19,7 @@ class Thread(models.Model):
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=64)
     created = models.DateTimeField(auto_now_add=True)
+    post_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
