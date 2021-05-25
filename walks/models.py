@@ -8,11 +8,16 @@ class Walk(models.Model):
     '''A full guided tour.'''
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title}: {self.description[:25]}"
+
+    def get_absolute_url(self):
+        #TODO GO TO STOP/DETAIL VIEW
+        return ('/')
+
 
 
 class Stop(models.Model):

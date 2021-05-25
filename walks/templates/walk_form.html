@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile
+{% endblock %}
+{% block content %}
+
+<h1>{{user.username}} <span class="text-info">New Walk</span></h1>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create Walk">
+</form>
+{% endblock %}
