@@ -1,6 +1,5 @@
 from django.views import View
 from .models import Walk, Stop, Picture
-from walks.forms import CreateWalkForm
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
