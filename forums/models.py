@@ -9,6 +9,9 @@ class Forum(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
 
+    def __str__(self):
+        return self.title
+
 
 class Thread(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
@@ -16,6 +19,8 @@ class Thread(models.Model):
     title = models.CharField(max_length=64)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
@@ -23,3 +28,6 @@ class Post(models.Model):
     position = models.PositiveIntegerField()
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Post {self.position} in Thread: {self.thread}"
