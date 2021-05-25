@@ -7,7 +7,9 @@ Forums
 <h1>Forums</h1>
 
 {% for forum in forum_list %}
-{{ forum.title }}
+<a href="{% url 'forums_detail' forum.id %}">
+  {{ forum.title }}
+</a>
 <br>
 {% endfor %}
 
