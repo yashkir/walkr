@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+New Post
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_home' %}">Forums</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_detail' thread.forum.id %}">{{ thread.forum.title }}</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'threads_detail' thread.id %}">{{ thread.title }}</a>
+    </li>
+    <li class="breadcrumb-item">
+      New Post
+    </li>
+  </ol>
+</nav>
+
+<h1>New Post</h1>
+
+<form action="" method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <button class="btn btn-primary" type="submit">Post</button>
+</form>
+
+{% endblock %}

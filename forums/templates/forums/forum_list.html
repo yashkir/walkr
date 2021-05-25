@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+Forums
+{% endblock %}
+{% block content %}
+
+<h1>Forums</h1>
+
+{% for forum in forum_list %}
+<a href="{% url 'forums_detail' forum.id %}">
+  {{ forum.title }}
+</a>
+<br>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ thread.title }}
+{% endblock %}
+{% block content %}
+
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_home' %}">Forums</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_detail' thread.forum.id %}">{{ thread.forum.title }}</a>
+    </li>
+    <li class="breadcrumb-item active">
+      {{ thread.title }}
+    </li>
+  </ol>
+</nav>
+
+<small>created by <b>{{ thread.author.username }}</b> on {{ thread.created }}</small>
+<h1>{{ thread.title }}</h1>
+<a class="btn btn-primary" href="{% url 'posts_create' thread.id %}">New Reply</a>
+
+<ul class="list-group mt-2">
+{% for post in thread.post_set.all %}
+  <li class="list-group-item">
+    {{ post.position }}: <b>{{ post.author.username }}</b> posted on {{ post.created }}
+    <hr>
+    {{ post.text }}
+  </li>
+{% empty %}
+  Nothing here...
+{% endfor %}
+</ul>
+
+{% endblock %}

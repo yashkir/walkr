@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ forum.title }}
+{% endblock %}
+{% block content %}
+
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'forums_home' %}">Forums</a></li>
+    <li class="breadcrumb-item active">{{ forum.title }}</li>
+  </ol>
+</nav>
+
+<h1>{{ forum.title }}</h1>
+<p>{{ forum.description }}</p>
+
+<a class="btn btn-primary" href="">New Thread</a>
+<hr>
+
+<h2>Threads</h2>
+<ul class="list-group">
+{% for thread in forum.thread_set.all %}
+  <li class="list-group-item">
+    <a href="{% url 'threads_detail' thread.id %}">
+      {{ thread.title }}
+    </a>
+    <br>
+    <small>created by <b>{{ thread.author.username }}</b> on {{ thread.created }}</small>
+  </li>
+{% empty %}
+  Nothing here...
+{% endfor %}
+</ul>
+
+{% endblock %}
