@@ -10,3 +10,7 @@ class ForumList(ListView):
 
 class ForumDetail(DetailView):
     model = Forum
+
+
+class ThreadDetail(DetailView):
+    model = Thread
