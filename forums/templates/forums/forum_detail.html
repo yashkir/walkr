@@ -4,8 +4,18 @@
 {% endblock %}
 {% block content %}
 
-<h1>{{ forum.title }}</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'forums_home' %}">Forums</a></li>
+    <li class="breadcrumb-item active">{{ forum.title }}</li>
+  </ol>
+</nav>
 
-posts go here
+<h1>{{ forum.title }}</h1>
+<p>{{ forum.description }}</p>
+
+<a class="btn btn-primary" href="">New Thread</a>
+<hr>
+threads go here
 
 {% endblock %}
