@@ -16,6 +16,18 @@
 
 <a class="btn btn-primary" href="">New Thread</a>
 <hr>
-threads go here
+
+<h2>Threads</h2>
+<ul class="list-group">
+{% for thread in forum.thread_set.all %}
+  <li class="list-group-item">
+    {{ thread.title }}
+    <br>
+    <small>created by <b>{{ thread.author.username }}</b> on {{ thread.created }}</small>
+  </li>
+{% empty %}
+  Nothing here...
+{% endfor %}
+</ul>
 
 {% endblock %}
