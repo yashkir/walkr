@@ -20,7 +20,7 @@ class Stop(models.Model):
     walk = models.ForeignKey(Walk, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     description = models.TextField()
-    location_text = models.TextField()
+    location_text = models.CharField(max_length=256)
     order = models.IntegerField(default=0)
 
     class Meta:
