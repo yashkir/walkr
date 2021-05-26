@@ -24,7 +24,7 @@ class Stop(models.Model):
     '''A location that is part of a Walk.'''
     walk = models.ForeignKey(Walk, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     location_text = models.CharField(max_length=256)
     order = models.IntegerField(default=0)
 
