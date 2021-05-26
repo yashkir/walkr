@@ -11,4 +11,6 @@ Profile
     {% else %}
     <p> Private Walk</p>
     {% endif %}
+
+    <button onclick="location.href='/walks/{{walk.id}}/add_stop/'" type="button" class="btn btn-primary">Create Stop</button>
 {% endblock %}
