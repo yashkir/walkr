@@ -40,6 +40,10 @@ class WalksList(ListView):
         context['now'] = timezone.now()
         return context
 
+class PictureCreate(CreateView):
+    model = Picture
+    template_name = 'add_picture.html'
+    fields = ['title', 'image']
 
 class StopCreate(CreateView):
     model = Stop
