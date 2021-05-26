@@ -12,6 +12,6 @@ Profile
 {% empty %}
     <li>No Walks Yet!</li>
 {% endfor %}
-<button onclick="location.href='/walks/create_walk/'" type="button" class="btn btn-primary">Create Walk</button>
+<a href="{% url 'create_walk' %}" class="btn btn-primary mt-3">Create Walk</a>
 </ul>
 {% endblock %}
