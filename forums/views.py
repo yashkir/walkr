@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 from .models import Forum, Thread, Post
 
@@ -18,7 +19,7 @@ class ThreadDetail(DetailView):
     model = Thread
 
 
-class ThreadCreate(CreateView):
+class ThreadCreate(CreateView, LoginRequiredMixin):
     model = Thread
     fields = ['title']
 
@@ -36,7 +37,7 @@ class ThreadCreate(CreateView):
         return reverse('threads_detail', kwargs={ 'pk': self.object.id })
 
 
-class PostCreate(CreateView):
+class PostCreate(CreateView, LoginRequiredMixin):
     model = Post
     fields = ['text']
 
@@ -59,8 +60,11 @@ class PostCreate(CreateView):
     def get_success_url(self):
         return reverse('threads_detail', kwargs={ 'pk': self.kwargs['thread_id'] })
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
 
     def get_success_url(self):
         return reverse('threads_detail', kwargs={ 'pk': self.object.thread.id })
