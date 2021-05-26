@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Picture
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'walk_detail' stop.walk.id%}">{{stop.walk.title}}</a></li>
+      <li class="breadcrumb-item active">{{stop.title}}</li>
+    </ol>
+  </nav>
+{% for picture in stop.picture_set.all %}
+<p>
+    {{picture.title}}
+</p>
+<img src="{{picture.image}}"></img>
+{% empty %}
+<p> No Pictures Yet!</p>
+{% endfor %}
+<a class = "btn btn-primary" href="{% url 'create_picture' stop.walk.id stop.id %}"> Add Picture</a>
+{% endblock %}

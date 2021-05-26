@@ -3,7 +3,7 @@
 Profile
 {% endblock %}
 {% block content %}
-    <h1>{{walk.title}} Details</h1>
+    <h1>{{walk.user}}-{{walk.title}} Details</h1>
     <h2> Description:</h2>
     <h4>{{walk.description}}</h4>
     {% if walk.is_public == True %}
@@ -21,9 +21,11 @@ Profile
         </thead>
         <tbody>
           {% for stop in walk.stop_set.all %}
-            <tr onclick="location.href='/walks/{{stop.id}}/add_photo'">
+            <tr onclick="location.href='{% url 'stop_detail' stop.walk.id stop.id %}'">
                 <td>{{stop.title}}</td>
                 <td>{{stop.description}}</td>
+                <td>{{stop.id}}</td>
+                <td>{{stop.walk.id}}</td>
             </tr>
         {% endfor %}
         </tbody>
