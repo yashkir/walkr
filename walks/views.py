@@ -42,6 +42,11 @@ class WalksList(ListView):
 
 
 class StopCreate(CreateView):
-    template_name = "add_stop_form.html"
     model = Stop
-    fields = ['title','description', 'is_public']
+    template_name = "stop_form.html"
+    fields = ['title','description', 'location_text', 'order']
+
+    def form_valid(self, form):
+        form.instance.walk = Walk.objects.get(id=self.kwargs['walk_id'])
+        # form.instance.order = self.request.user
+        return super().form_valid(form)
