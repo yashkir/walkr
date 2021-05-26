@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}
-Profile
+New Walk
 {% endblock %}
 {% block content %}
 
-<h1>{{user.username}} <span class="text-info">New Walk</span></h1>
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create Walk">
+{% load bootstrap4 %}
+
+<h1>New Walk</h1>
+<form method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input class="btn btn-primary" type="submit" value="Create Walk">
 </form>
 {% endblock %}
