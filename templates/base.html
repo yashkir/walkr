@@ -1,13 +1,13 @@
 {% load bootstrap4 %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>walkrR - {% block title %}{% endblock %}</title>
   {% bootstrap_css %}
 </head>
-<body>
+<body class="d-flex flex-column h-100">
   {% bootstrap_javascript jquery='full' %}
   {% bootstrap_messages %}
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -38,9 +38,15 @@
     </div>
   </nav>
 
-  <main class="container mt-4">
+  <main class="container my-4">
   {% block content %}
   {% endblock %}
   </main>
+
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+      <span class="text-muted">made with Bootstrap</span>
+    </div>
+  </footer>
 </body>
 </html>
