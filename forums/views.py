@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 
 from .models import Forum, Thread, Post
 
@@ -59,3 +59,8 @@ class PostCreate(CreateView):
     def get_success_url(self):
         return reverse('threads_detail', kwargs={ 'pk': self.kwargs['thread_id'] })
 
+class PostDelete(DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        return reverse('threads_detail', kwargs={ 'pk': self.object.thread.id })

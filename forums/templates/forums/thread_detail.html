@@ -28,6 +28,11 @@
 {% for post in thread.post_set.all %}
   <li class="list-group-item">
     {{ post.position }}: <b>{{ post.author.username }}</b> posted on {{ post.created }}
+    {% if user.is_authenticated and post.author == user %}
+    <a class="float-right" href="{% url 'posts_delete' post.id %}">delete</a>
+    {% else %}
+    {% comment %}reply link goes here {% endcomment %}
+    {% endif %}
     <hr>
     {{ post.text }}
   </li>

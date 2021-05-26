@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+Delete Post
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_home' %}">Forums</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_detail' post.thread.forum.id %}">{{ post.thread.forum.title }}</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'threads_detail' post.thread.id %}">{{ post.thread.title }}</a>
+    </li>
+    <li class="breadcrumb-item active">
+      Delete Post #{{ post.position }} 
+    </li>
+  </ol>
+</nav>
+
+<h1>Delete Post</h1>
+<form action="" method="post">
+  {% csrf_token %}
+  Thread: <b>{{ post.thread.title }}</b>, You said:
+  <div class="card">
+    <div class="card-body">
+      {{ post.text }}
+    </div>
+  </div>
+  <br>
+  <input class="btn btn-danger" type="submit" value="DELETE">
+  <a href="{% url 'threads_detail' post.thread.id %}">Go back</a>
+</form>
+
+{% endblock %}
