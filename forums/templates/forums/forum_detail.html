@@ -14,7 +14,7 @@
 <h1>{{ forum.title }}</h1>
 <p>{{ forum.description }}</p>
 
-<a class="btn btn-primary" href="">New Thread</a>
+<a class="btn btn-primary" href="{% url 'threads_create' forum.id %}">New Thread</a>
 <hr>
 
 <h2>Threads</h2>

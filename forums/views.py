@@ -18,6 +18,24 @@ class ThreadDetail(DetailView):
     model = Thread
 
 
+class ThreadCreate(CreateView):
+    model = Thread
+    fields = ['title']
+
+    def form_valid(self, form):
+        form.instance.forum_id = self.kwargs['forum_id']
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['forum'] = Forum.objects.get(id=self.kwargs['forum_id'])
+        return context
+
+    def get_success_url(self):
+        return reverse('threads_detail', kwargs={ 'pk': self.object.id })
+
+
 class PostCreate(CreateView):
     model = Post
     fields = ['text']
