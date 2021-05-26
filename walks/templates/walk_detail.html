@@ -12,5 +12,22 @@ Profile
     <p> Private Walk</p>
     {% endif %}
 
+    <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+              <th scope="col">Stop Name</th>
+              <th scope="col">Stop Description</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for stop in walk.stop_set.all %}
+            <tr onclick="location.href='/walks/{{stop.id}}/add_photo'">
+                <td>{{stop.title}}</td>
+                <td>{{stop.description}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    <br>
     <button onclick="location.href='/walks/{{walk.id}}/add_stop/'" type="button" class="btn btn-primary">Create Stop</button>
 {% endblock %}
