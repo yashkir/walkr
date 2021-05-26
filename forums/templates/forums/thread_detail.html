@@ -22,6 +22,8 @@
 <h1>{{ thread.title }}</h1>
 <a class="btn btn-primary" href="{% url 'posts_create' thread.id %}">New Reply</a>
 
+<hr>
+
 <ul class="list-group mt-2">
 {% for post in thread.post_set.all %}
   <li class="list-group-item">

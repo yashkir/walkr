@@ -6,11 +6,18 @@ Forums
 
 <h1>Forums</h1>
 
+<hr>
+
+<ul class="list-group">
 {% for forum in forum_list %}
-<a href="{% url 'forums_detail' forum.id %}">
-  {{ forum.title }}
-</a>
-<br>
+  <li class="list-group-item">
+    <a href="{% url 'forums_detail' forum.id %}">
+      {{ forum.title }}
+    </a>
+    <br>
+    <small>{{ forum.description }}</small>
+  </li>
 {% endfor %}
+</ul>
 
 {% endblock %}
