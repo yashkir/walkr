@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -15,8 +16,7 @@ class Walk(models.Model):
         return f"{self.title}: {self.description[:25]}"
 
     def get_absolute_url(self):
-        #TODO GO TO STOP/DETAIL VIEW
-        return ('/')
+        return reverse ('walk_detail', args=[str(self.id)])
 
 
 
@@ -33,6 +33,9 @@ class Stop(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.location_text}): {self.description[:25]}"
+
+    def get_absolute_url(self):
+        return reverse ('walk_detail', args=[str(self.walk.id)])
 
 
 class Picture(models.Model):
