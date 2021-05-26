@@ -11,13 +11,13 @@ class Walk(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.title}: {self.description[:25]}"
 
     def get_absolute_url(self):
         return reverse ('walk_detail', args=[str(self.id)])
-
 
 
 class Stop(models.Model):
@@ -27,6 +27,7 @@ class Stop(models.Model):
     description = models.TextField(blank=True)
     location_text = models.CharField(max_length=256)
     order = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['order']
@@ -43,6 +44,10 @@ class Picture(models.Model):
     stop = models.ForeignKey(Stop, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     image = models.ImageField()
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.title}"
+
+    def get_absolute_url(self):
+        return reverse ('stop_detail', args=[str(self.stop.walk.id), str(self.stop.id)])
