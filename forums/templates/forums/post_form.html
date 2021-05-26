@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-New Post
+Post
 {% endblock %}
 {% block content %}
 
@@ -23,11 +23,12 @@ New Post
   </ol>
 </nav>
 
-<h1>New Post</h1>
-
+<h1>Post</h1>
+Posting to <b>{{ thread.title }}</b>
 <form action="" method="post">
   {% csrf_token %}
-  {% bootstrap_form form %}
+  {% bootstrap_form_errors form %}
+  {% bootstrap_field form.text show_label=False %}
   <button class="btn btn-primary" type="submit">Post</button>
 </form>
 
