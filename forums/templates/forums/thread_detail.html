@@ -28,10 +28,13 @@
 {% for post in thread.post_set.all %}
 <div>
   <div class="card mb-2">
-    <div class="card-header small">
+    <div class="card-header">
       {{ post.position }}: <b>{{ post.author.username }}</b> posted on {{ post.created }}
       {% if user.is_authenticated and post.author == user %}
-      <a class="float-right" href="{% url 'posts_delete' post.id %}">delete</a>
+      <div class="float-right">
+        <a class="badge badge-secondary" href="{% url 'posts_edit' post.id %}">edit</a>
+        <a class="badge badge-warning" href="{% url 'posts_delete' post.id %}">delete</a>
+      </div>
       {% else %}
       {% comment %}reply link goes here {% endcomment %}
       {% endif %}

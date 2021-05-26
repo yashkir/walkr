@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 from .models import Forum, Thread, Post
@@ -59,6 +59,23 @@ class PostCreate(CreateView, LoginRequiredMixin):
 
     def get_success_url(self):
         return reverse('threads_detail', kwargs={ 'pk': self.kwargs['thread_id'] })
+
+
+class PostEdit(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['text']
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['thread'] = self.object.thread
+        return context
+
+    def get_success_url(self):
+        return reverse('threads_detail', kwargs={ 'pk': self.object.thread.id })
+
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
