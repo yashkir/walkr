@@ -20,25 +20,29 @@
 
 <small>created by <b>{{ thread.author.username }}</b> on {{ thread.created }}</small>
 <h1>{{ thread.title }}</h1>
-<a class="btn btn-primary" href="{% url 'posts_create' thread.id %}">New Reply</a>
+<a class="" href="{% url 'posts_create' thread.id %}">New Reply</a>
 
 <hr>
 
-<ul class="list-group mt-2">
+
 {% for post in thread.post_set.all %}
-  <li class="list-group-item">
-    {{ post.position }}: <b>{{ post.author.username }}</b> posted on {{ post.created }}
-    {% if user.is_authenticated and post.author == user %}
-    <a class="float-right" href="{% url 'posts_delete' post.id %}">delete</a>
-    {% else %}
-    {% comment %}reply link goes here {% endcomment %}
-    {% endif %}
-    <hr>
-    {{ post.text }}
-  </li>
+<div>
+  <div class="card mb-2">
+    <div class="card-header small">
+      {{ post.position }}: <b>{{ post.author.username }}</b> posted on {{ post.created }}
+      {% if user.is_authenticated and post.author == user %}
+      <a class="float-right" href="{% url 'posts_delete' post.id %}">delete</a>
+      {% else %}
+      {% comment %}reply link goes here {% endcomment %}
+      {% endif %}
+    </div>
+    <div class="card-body">
+      {{ post.text }}
+    </div>
+  </div>
+</div>
 {% empty %}
-  Nothing here...
+Nothing here...
 {% endfor %}
-</ul>
 
 {% endblock %}
