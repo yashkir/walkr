@@ -15,7 +15,13 @@
     
     <div class = "container-fluid text-light bg-dark">
 
-        <h1>{{walk.title}} Details</h1>
+        <h1>{{walk.title}} Details
+            {% if walk.user == user or user.is_staff == True %}
+            <div class="float-right">
+                <a class="badge badge-secondary" href="{% url 'walk_edit' walk.id %}">EDIT</a>
+                <a class="badge badge-warning" href="{% url 'walk_delete' walk.id %}">DELETE</a>
+            </div>
+            {% endif %}</h1>
         <h2> Description:</h2>
         <h4>{{walk.description}}</h4>
         {% if walk.is_public == True %}

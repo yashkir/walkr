@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit Walk
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'walk_detail' walk.id%}">{{walk.title}}</a></li>
+          <li class="breadcrumb-item active">
+            Edit {{walk.title}}
+          </li>
+        </ol>
+      </nav>
+</div>
+
+<h1>{{user.username}} <span class="text-info">Change Walk Details</span></h1>
+<form method="post">{% csrf_token %}
+    {% bootstrap_form form %}
+    <input class="btn btn-primary" type="submit" value="Update Walk">
+</form>
+
+{% endblock %}

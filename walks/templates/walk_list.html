@@ -6,9 +6,17 @@ Profile
 <h1>Walks</h1>
 <ul class="list-group">
 {% for walk in object_list %}
+<li style="opacity:0.8" class="list-group-item">
     <a href= "{% url 'walk_detail' walk.id %}">
-        <li class="list-group-item">{{ walk.title }} - {{ walk.description }}</li>
-    </a>
+            {{ walk.title }} - {{ walk.description }}
+        </a>
+        {% if walk.user == user or user.is_staff == True %}
+        <div class="float-right">
+            <a class="badge badge-secondary" href="{% url 'walk_edit' walk.id %}">EDIT</a>
+            <a class="badge badge-warning" href="{% url 'walk_delete' walk.id %}">DELETE</a>
+        </div>
+        {% endif %}
+    </li>
 {% empty %}
     <li>No Walks Yet!</li>
 {% endfor %}
