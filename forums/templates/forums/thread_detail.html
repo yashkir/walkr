@@ -29,14 +29,23 @@
 <div>
   <div class="card mb-2">
     <div class="card-header">
-      {{ post.position }}: <b>{{ post.author.username }}</b> posted on {{ post.created }}
+      <a name="post{{ post.position }}">#{{ post.position }}</a>:
+      <b>{{ post.author.username }}</b>
+      {% if post.reply_to %}
+      in reply to <a class="badge badge-pill badge-primary" 
+                     href="#post{{ post.reply_to.position }}">#{{ post.reply_to.position }}</a>
+      {% endif %}
+      posted on {{ post.created }}
+
       {% if user.is_authenticated and post.author == user %}
       <div class="float-right">
         <a class="badge badge-secondary" href="{% url 'posts_edit' post.id %}">edit</a>
         <a class="badge badge-warning" href="{% url 'posts_delete' post.id %}">delete</a>
       </div>
       {% else %}
-      {% comment %}reply link goes here {% endcomment %}
+      <div class="float-right">
+        <a class="badge badge-primary" href="{% url 'posts_reply' thread.id post.id %}">reply</a>
+      </div>
       {% endif %}
     </div>
     <div class="card-body">

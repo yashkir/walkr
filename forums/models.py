@@ -27,6 +27,7 @@ class Thread(models.Model):
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    reply_to = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)
     position = models.PositiveIntegerField()
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

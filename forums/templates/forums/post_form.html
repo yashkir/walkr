@@ -24,7 +24,19 @@ Post
 </nav>
 
 <h1>Post</h1>
-Posting to <b>{{ thread.title }}</b>
+
+{% if reply_to %}
+In reply to #{{ reply_to.position }} by <b>{{ reply_to.author }}</b> in <b>{{ thread.title }}</b>
+<div class="card my-2">
+  <div class="card-body">
+    {{ reply_to.text }}
+  </div>
+</div>
+You say:
+{% else %}
+Posting to <b>{{ thread.title }}</b>:
+{% endif %}
+
 <form action="" method="post">
   {% csrf_token %}
   {% bootstrap_form_errors form %}

@@ -37,7 +37,7 @@ class ThreadCreate(CreateView, LoginRequiredMixin):
         return reverse('threads_detail', kwargs={ 'pk': self.object.id })
 
 
-class PostCreate(CreateView, LoginRequiredMixin):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['text']
 
@@ -59,6 +59,17 @@ class PostCreate(CreateView, LoginRequiredMixin):
 
     def get_success_url(self):
         return reverse('threads_detail', kwargs={ 'pk': self.kwargs['thread_id'] })
+
+
+class PostReply(PostCreate):
+    def form_valid(self, form):
+        form.instance.reply_to = Post.objects.get(id=self.kwargs['post_id'])
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reply_to'] = Post.objects.get(id=self.kwargs['post_id'])
+        return context
 
 
 class PostEdit(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
