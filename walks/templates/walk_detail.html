@@ -45,8 +45,11 @@
             {% endfor %}
         </tbody>
     </table>
-    <br>
-    <p>stop user: {{walk.user.username}}, user: {{user}}</p>
+
+    {% if walk.comment_thread %}
+    <a class="btn btn-primary" href="{% url 'threads_detail' walk.comment_thread.id %}">View Comments...</a>
+    {% endif %}
+
     {% if user == walk.user or user.is_staff == True or walk.is_public == True%}
     <a href='/walks/{{walk.id}}/add_stop/'  class="btn btn-primary float-right">Create Stop</a>
     {% endif %}

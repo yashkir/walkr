@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
+from forums.models import Thread, get_comments_forum
+
 User = get_user_model()
 
 
@@ -12,6 +14,19 @@ class Walk(models.Model):
     description = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
+    comment_thread = models.OneToOneField(Thread, null=True, on_delete=models.SET_NULL)
+
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            comment_thread = Thread.objects.create(
+                title=f"Walk: {self.title}",
+                forum=get_comments_forum(),
+                author=self.user,
+            )
+            comment_thread.save()
+            self.comment_thread = comment_thread
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.title}: {self.description[:25]}"
