@@ -32,7 +32,7 @@ class Walk(models.Model):
         return f"{self.title}: {self.description[:25]}"
 
     def get_absolute_url(self):
-        return reverse ('walks_detail', args=[str(self.id)])
+        return reverse ('walk_detail', args=[str(self.id)])
 
 
 class Stop(models.Model):
