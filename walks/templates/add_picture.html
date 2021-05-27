@@ -3,9 +3,22 @@
 Add Picture
 {% endblock %}
 {% block content %}
-
 {% load bootstrap4 %}
+
+<div>
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'walk_detail' walk_id%}">{{walk_title}}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'stop_detail' walk_id stop_id%}">{{stop_title}}</a></li>
+        <li class="breadcrumb-item active">
+          Add Picture
+        </li>
+      </ol>
+    </nav>
+</div>
+
 <h1>Add Picture</h1>
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
