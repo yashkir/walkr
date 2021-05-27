@@ -32,7 +32,7 @@ class Walk(models.Model):
         return f"{self.title}: {self.description[:25]}"
 
     def get_absolute_url(self):
-        return reverse ('walks_home', args=[str(self.id)])
+        return reverse ('walks_detail', args=[str(self.id)])
 
 
 class Stop(models.Model):
@@ -51,7 +51,7 @@ class Stop(models.Model):
         return f"{self.title} ({self.location_text}): {self.description[:25]}"
 
     def get_absolute_url(self):
-        return reverse ('walks_home', args=[str(self.walk.id)])
+        return reverse ('walk_detail', args=[str(self.walk.id)])
 
 
 class Picture(models.Model):

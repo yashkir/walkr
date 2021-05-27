@@ -51,7 +51,7 @@ class WalkDelete(DeleteView):
         return obj
 
     def get_success_url(self):
-        return reverse('all_walks')
+        return reverse('walk_detail')
 
 
 class WalksList(ListView):
