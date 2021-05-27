@@ -4,6 +4,16 @@ from django.contrib.auth import get_user_model
 
 
 User = get_user_model()
+COMMENTS_FORUM_NAME = "Walk Comments"
+COMMENTS_FORUM_DESCRIPTION = "A special forum to comment on walks."
+
+
+def get_comments_forum():
+    forum, created = Forum.objects.get_or_create(
+        title=COMMENTS_FORUM_NAME,
+        defaults={'description': COMMENTS_FORUM_DESCRIPTION},
+    )
+    return forum
 
 
 class Forum(models.Model):

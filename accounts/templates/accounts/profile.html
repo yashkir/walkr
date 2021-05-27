@@ -8,4 +8,20 @@ Profile
 
 <h1>Profile: <span class="text-info">{{ user.username }}</span></h1>
 <a class="btn btn-primary" href="{% url 'logout' %}">Log Out</a>
+
+<hr>
+
+<h2>Your Walks:</h2>
+<div class="list-group">
+  {% for walk in user.walk_set.all %}
+  <a class="list-group-item list-group-item-action" href= "{% url 'walk_detail' walk.id %}">
+    {{ walk.title }}
+    <br>
+    <small>{{ walk.description }}</small>
+  </a>
+  {% empty %}
+  No Walks Yet!
+  {% endfor %}
+</ul>
+
 {% endblock %}
