@@ -1,35 +1,53 @@
 {% extends 'base.html' %}
 {% block title %}
-Profile
+{{walk.title}}
 {% endblock %}
 {% block content %}
-    <h1>{{walk.user}}-{{walk.title}} Details</h1>
-    <h2> Description:</h2>
-    <h4>{{walk.description}}</h4>
-    {% if walk.is_public == True %}
-    <p> Public Walk</p>
-    {% else %}
-    <p> Private Walk</p>
-    {% endif %}
 
-    <table class="table table-hover table-striped">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">{{walk.title}}</li>
+            </ol>
+        </nav>
+    </div>
+    
+    
+    <div class = "container-fluid text-light bg-dark">
+
+        <h1>{{walk.title}} Details</h1>
+        <h2> Description:</h2>
+        <h4>{{walk.description}}</h4>
+        {% if walk.is_public == True %}
+    <p> Public Walk by {{walk.user}}</p>
+    {% else %}
+    <p> Private Walk by {{walk.user}}</p>
+    {% endif %}
+    </div>
+    
+    <table style ="opacity:0.8"class="table text-center text-light bg-dark table-hover table-striped">
         <thead>
-          <tr>
-              <th scope="col">Stop Name</th>
-              <th scope="col">Stop Description</th>
+            <tr>
+                <th scope="col">Stop Name</th>
+                <th scope="col" >Stop Description</th>
             </tr>
         </thead>
         <tbody>
-          {% for stop in walk.stop_set.all %}
+            {% for stop in walk.stop_set.all %}
             <tr onclick="location.href='{% url 'stop_detail' stop.walk.id stop.id %}'">
                 <td>{{stop.title}}</td>
                 <td>{{stop.description}}</td>
-                <td>{{stop.id}}</td>
-                <td>{{stop.walk.id}}</td>
+                {% if user == walk.user or user.is_staff == True%}
+                <td><a class="badge badge-secondary" href="{% url 'edit_stop' stop.walk.id stop.id %}">Edit</a></td>
+                <td><a class="badge badge-warning" href="{% url 'delete_stop' stop.walk.id stop.id %}">Delete</a></td>
+                {% endif %}
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
-      </table>
+    </table>
     <br>
-    <button onclick="location.href='/walks/{{walk.id}}/add_stop/'" type="button" class="btn btn-primary">Create Stop</button>
-{% endblock %}
+    <p>stop user: {{walk.user.username}}, user: {{user}}</p>
+    {% if user == walk.user or user.is_staff == True or walk.is_public == True%}
+    <a href='/walks/{{walk.id}}/add_stop/'  class="btn btn-primary float-right">Create Stop</a>
+    {% endif %}
+    {% endblock %}

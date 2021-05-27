@@ -7,7 +7,17 @@
   <title>walkrR - {% block title %}{% endblock %}</title>
   {% bootstrap_css %}
 </head>
+{% with path_string=request.path %}
+{% if 'view_walk' in path_string %}
+<body style= "background:linear-gradient(to bottom, #9be2fe 0%,#67d1fb 100%); background-size:cover"  class="d-flex flex-column h-100">
+
+{% elif "/stop/" in path_string %}
+<body style= "background-image:url('https://cdn.pixabay.com/photo/2019/04/10/11/56/watercolour-4116932_960_720.png'); background-size:cover" class="d-flex flex-column h-100">
+{% else %}
 <body class="d-flex flex-column h-100">
+  {{path_string}}
+{% endif %}
+{% endwith %}
   {% bootstrap_javascript jquery='full' %}
   {% bootstrap_messages %}
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
