@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if os.getenv('DEV'):
     SECRET_KEY = 'django-insecure-@4-gak%%l3^89_-*ie8v#$#8uv5ccz2#(em7d*u*pq5h_qrnmw'
     DEBUG = True
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
-    DEBUG = False
-
-    # Linode (S3) setup
+    DEBUG = os.getenv('DEBUG') or False
 
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
@@ -43,7 +45,7 @@ else:
     AWS_S3_USE_SSL=True
     AWS_STORAGE_BUCKET_NAME=LINODE_BUCKET
 
-    AWS_LOCATION='showoff/'
+    AWS_LOCATION='walkr/'
 
 
 ALLOWED_HOSTS = []
@@ -143,8 +145,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
