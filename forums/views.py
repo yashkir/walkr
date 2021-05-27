@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 from .models import Forum, Thread, Post
+from .forms import PostForm
 
 
 class ForumList(ListView):
@@ -17,6 +18,11 @@ class ForumDetail(DetailView):
 
 class ThreadDetail(DetailView):
     model = Thread
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_form'] = PostForm()
+        return context
 
 
 class ThreadCreate(LoginRequiredMixin, CreateView):
