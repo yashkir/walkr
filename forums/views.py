@@ -37,6 +37,16 @@ class ThreadCreate(CreateView, LoginRequiredMixin):
         return reverse('threads_detail', kwargs={ 'pk': self.object.id })
 
 
+class ThreadDelete(LoginRequiredMixin, DeleteView):
+    model = Thread
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+    def get_success_url(self):
+        return reverse('forums_detail', kwargs={ 'pk': self.object.forum.id })
+
+
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['text']

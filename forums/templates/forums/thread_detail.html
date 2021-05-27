@@ -21,6 +21,9 @@
 <small>created by <b>{{ thread.author.username }}</b> on {{ thread.created }}</small>
 <h1>{{ thread.title }}</h1>
 <a class="" href="{% url 'posts_create' thread.id %}">New Reply</a>
+{% if user.is_authenticated and thread.author == user %}
+<a class="text-danger float-right" href="{% url 'threads_delete' thread.id %}">Delete Thread</a>
+{% endif %}
 
 <hr>
 

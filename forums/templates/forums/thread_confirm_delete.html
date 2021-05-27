@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Delete Thread
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_home' %}">Forums</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'forums_detail' thread.forum.id %}">{{ thread.forum.title }}</a>
+    </li>
+    <li class="breadcrumb-item active">
+      Delete Thread {{ thread.title }} 
+    </li>
+  </ol>
+</nav>
+
+<h1>Delete Thread</h1>
+<form action="" method="post">
+  {% csrf_token %}
+  Are you sure you want to delete thread: <b>{{ thread.title }}</b>
+  <br>
+  <br>
+  <input class="btn btn-danger" type="submit" value="DELETE">
+  <a href="{% url 'forums_detail' thread.forum.id %}">Go back</a>
+</form>
+
+{% endblock %}
