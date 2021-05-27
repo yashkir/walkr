@@ -19,7 +19,7 @@ class ThreadDetail(DetailView):
     model = Thread
 
 
-class ThreadCreate(CreateView, LoginRequiredMixin):
+class ThreadCreate(LoginRequiredMixin, CreateView):
     model = Thread
     fields = ['title']
 
