@@ -3,9 +3,10 @@ from django.views import View
 from .models import Walk, Stop, Picture
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.urls import reverse
 
 
 class WalkCreate(CreateView):
@@ -24,7 +25,6 @@ class WalkDetail(DetailView):
     template_name = 'walk_detail.html'
 
     def get_object(self):
-        print(f"self----> {self}")
         obj = super().get_object()
         # Record the last accessed date
         obj.last_accessed = timezone.now()
@@ -47,6 +47,15 @@ class PictureCreate(CreateView):
     template_name = 'add_picture.html'
     fields = ['title', 'image']
 
+    def get_context_data(self, **kwargs):
+        obj = Stop.objects.get(id=self.kwargs['stop_id'])
+        context = super().get_context_data(**kwargs)
+        context['stop_title'] = obj.title
+        context['walk_title'] = obj.walk.title
+        context['stop_id'] = self.kwargs['stop_id']
+        context['walk_id'] = self.kwargs['walk_id']
+        return context
+
     def form_valid(self, form):
         form.instance.stop = Stop.objects.get(id=self.kwargs['stop_id'])
         return super().form_valid(form)
@@ -67,8 +76,6 @@ class StopDetail(DetailView):
     template_name = 'stop_detail.html'
 
     def get_object(self):
-        print(f"self----> {self}")
-        # breakpoint()
         obj = Stop.objects.get(id=self.kwargs['stop_id'])
         obj.stopsInWalk = Stop.objects.filter(walk_id=self.kwargs['walk_id']).order_by('created')
         obj.stopsInWalk.length = obj.stopsInWalk.count()
@@ -76,16 +83,9 @@ class StopDetail(DetailView):
         dictionary_of_stops = {}
         for stop in obj.stopsInWalk:
             dictionary_of_stops[key_no] = stop
-            print('stop')
-            print(stop.location_text)
-            print(stop.id)
             if stop.id == self.kwargs['stop_id']:
                 obj.currentStopNo=key_no
-                print(obj.currentStopNo)
-            else:
-                print("FALSE")
             key_no+=1
-        print(dictionary_of_stops)
         #if the current stop is the first stop, set walk id and stop id of previous stop to -1
         if obj.currentStopNo == 1:
             obj.previous_stop_ID = -1
@@ -104,3 +104,25 @@ class StopDetail(DetailView):
         obj.last_accessed = timezone.now()
         obj.save()
         return obj
+
+
+class StopEdit(UpdateView):
+    model = Stop
+    template_name = 'stop_update_form.html'
+    fields = ['title','description', 'location_text', 'order']
+
+    def get_object(self):
+        obj = Stop.objects.get(id=self.kwargs['stop_id'])
+        return obj
+
+
+class StopDelete(DeleteView):
+    model = Stop
+    template_name = 'stop_confirm_delete.html'
+
+    def get_object(self):
+        obj = Stop.objects.get(id=self.kwargs['stop_id'])
+        return obj
+
+    def get_success_url(self):
+        return reverse('walk_detail', kwargs={ 'pk': self.kwargs['walk_id'] })

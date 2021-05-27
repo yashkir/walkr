@@ -10,4 +10,6 @@ urlpatterns = [
     path('all_walks/', views.WalksList.as_view(), name='all_walks'),
     path('view_walk/<int:pk>/', views.WalkDetail.as_view(), name = 'walk_detail'),
     path('<int:walk_id>/stop/<int:stop_id>/', views.StopDetail.as_view(), name='stop_detail'),
+    path('<int:walk_id>/stop/<int:stop_id>/edit', views.StopEdit.as_view(), name='edit_stop'),
+    path('<int:walk_id>/stop/<int:stop_id>/delete', views.StopDelete.as_view(), name='delete_stop'),
 ]
