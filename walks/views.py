@@ -32,6 +32,28 @@ class WalkDetail(DetailView):
         return obj
 
 
+class WalkEdit(UpdateView):
+    model = Walk
+    template_name = 'walk_update_form.html'
+    fields = ['title','description', 'is_public']
+
+    def get_object(self):
+        obj = Walk.objects.get(id=self.kwargs['pk'])
+        return obj
+
+
+class WalkDelete(DeleteView):
+    model = Walk
+    template_name = 'walk_confirm_delete.html'
+
+    def get_object(self):
+        obj = Walk.objects.get(id=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        return reverse('all_walks')
+
+
 class WalksList(ListView):
     model = Walk
     template_name = 'walk_list.html'

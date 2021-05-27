@@ -12,7 +12,9 @@
 <body style= "background:linear-gradient(to bottom, #9be2fe 0%,#67d1fb 100%); background-size:cover"  class="d-flex flex-column h-100">
 
 {% elif "/stop/" in path_string %}
-<body style= "background-image:url('https://cdn.pixabay.com/photo/2019/04/10/11/56/watercolour-4116932_960_720.png'); background-size:cover" class="d-flex flex-column h-100">
+<body style= "background:linear-gradient(to bottom, #9be2fe 0%,#67d1fb 100%); background-size:cover" class="d-flex flex-column h-100">
+{% elif "/walks/" == path_string %}
+<body style= "background-image:url('https://cdn.pixabay.com/photo/2016/11/29/12/35/brick-wall-1869537__340.jpg'); background-size:cover" class="d-flex flex-column h-100"></body>
 {% else %}
 <body class="d-flex flex-column h-100">
 {% endif %}
