@@ -45,7 +45,7 @@ Add Picture
             {% endif %}
         </div>
           <div class="carousel-caption d-block">
-              <h5 class="image-caption">{{picture.title}}</h5>
+              <span class="image-caption">{{picture.title}}</span>
           </div>
        </div>
 
@@ -57,9 +57,9 @@ Add Picture
                <a href ="{% url 'delete_picture' picture.stop.walk.id picture.stop.id picture.id %}" class="btn btn-sm btn-danger delete-button">X</a>
                {% endif %}
            </div>
-             <div class="carousel-caption d-block">
-                 <h5 class="image-caption">{{picture.title}}</h5>
-             </div>
+          <div class="carousel-caption d-block">
+              <span class="image-caption">{{picture.title}}</span>
+          </div>
       </div>
       {% elif forloop.last %}
       <div class="carousel-item">
@@ -70,7 +70,7 @@ Add Picture
               {% endif %}
           </div>
             <div class="carousel-caption d-block">
-                <h5 class="image-caption">{{picture.title}}</h5>
+              <span class="image-caption">{{picture.title}}</span>
             </div>
      </div>
        {% else %}
@@ -82,21 +82,11 @@ Add Picture
             {% endif %}
         </div>
           <div class="carousel-caption d-block">
-              <h5 class="image-caption">{{picture.title}}</h5>
+              <span class="image-caption">{{picture.title}}</span>
           </div>
        </div>
        {% endif %}
        {% endwith %}
-       {% empty %}
-       <div class="card mb-3">
-             <div class="card-body">
-               <h5 class="image-caption" class="card-title">No Pictures</h5>
-               {% if stop.walk.user == user or user.is_staff == True%}
-               <a href ="{% url 'delete_picture' picture.stop.walk.id picture.stop.id picture.id %}" class="btn btn-warning">Delete</a>
-               {% endif %}
-               <p class="card-text">There are currently no pictures for this walk, click "Add Picture" to get started!</p>
-             </div>
-           </div>
        {% endfor %}
    </div>
    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -107,6 +97,13 @@ Add Picture
        <span class="carousel-control-next-icon" aria-hidden="true"></span>
        <span class="sr-only">Next</span>
   </a>
+</div>
+{% else %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">No Pictures</h5>
+    <p class="card-text">There are currently no pictures for this walk, click "Add Picture" to get started!</p>
+  </div>
 </div>
 {% endif %}
 {% if stop.walk.user == user or user.is_staff == True or stop.walk.is_public == True%}

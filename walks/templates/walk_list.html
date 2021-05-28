@@ -1,33 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}
-Profile
+Walks
 {% endblock %}
 {% block content %}
 <h1 class="title-caption">Walks</h1>
+<hr>
+<div class="list-group">
 {% for walk in object_list %}
-<div >
-    {% if walk.is_public == False %} 
-        {% if walk.user == user or user.is_staff == True %}
-        <a style="opacity:0.9"class="list-group-item" href= "{% url 'walk_detail' walk.id %}">
-            {{ walk.title }}<br> <small>
-                {{ walk.description }}
-            </small>
-        {% endif %}
-    {% else %}
-    <a style="opacity:0.9"class="list-group-item" href= "{% url 'walk_detail' walk.id %}">
-        {{ walk.title }}<br> <small>
-            {{ walk.description }}
-        </small>
-    {% endif %}
-        {% if walk.user == user or user.is_staff == True %}
-        <a style="z-index: 11; top :-4.5vh" class="badge rounded-pill list-group-item d-inline bg-warning badge-warning float-right text-center mr-3" href="{% url 'walk_delete' walk.id %}">DELETE</a>
-        <a style="z-index: 11; top: -4.5vh" class="badge rounded-pill list-group-item d-inline bg-dark badge-secondary float-right text-center mr-3" href="{% url 'walk_edit' walk.id %}">EDIT</a>
-        {% endif %}
-    </a>
+  {% if walk.is_public %} 
+  <a class="list-group-item list-group-item-action" href= "{% url 'walk_detail' walk.id %}">
+    <span class="h5 text-primary">{{ walk.title }}</span>
+    <br>
+    <small>{{ walk.description }}</small>
+  </a>
+  {% endif %}
+  {% empty %}
+  <li>No Walks Yet!</li>
+  {% endfor %}
 </div>
-    {% empty %}
-    <li>No Walks Yet!</li>
-    {% endfor %}
-    <a href="{% url 'create_walk' %}" class="btn btn-primary mt-3">Create Walk</a>
-    {% endblock %}
-    
+<a href="{% url 'create_walk' %}" class="btn btn-primary mt-3 float-right">Create Walk</a>
+{% endblock %}
