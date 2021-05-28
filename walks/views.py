@@ -82,10 +82,30 @@ class PictureCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+
+class PictureDelete(LoginRequiredMixin, DeleteView):
+    model = Picture
+    template_name = 'picture_confirm_delete.html'
+
+    def get_object(self):
+        obj = Picture.objects.get(id=self.kwargs['picture_id'])
+        return obj
+
+    def get_success_url(self):
+        return reverse('stop_detail', kwargs={ 'walk_id': self.kwargs['walk_id'], 'stop_id': self.kwargs['stop_id'] })
+
+
 class StopCreate(LoginRequiredMixin, CreateView):
     model = Stop
     template_name = "stop_form.html"
     fields = ['title','description', 'location_text', 'order']
+
+    def get_context_data(self, **kwargs):
+        obj = Walk.objects.get(id=self.kwargs['walk_id'])
+        context = super().get_context_data(**kwargs)
+        context['walk_title'] = obj.title
+        context['walk_id'] = self.kwargs['walk_id']
+        return context
 
     def form_valid(self, form):
         form.instance.walk = Walk.objects.get(id=self.kwargs['walk_id'])
