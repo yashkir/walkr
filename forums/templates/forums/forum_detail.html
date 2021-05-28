@@ -18,18 +18,16 @@
 <hr>
 
 <h2>Threads</h2>
-<ul class="list-group">
+<div class="list-group">
 {% for thread in forum.thread_set.all %}
-  <li class="list-group-item">
-    <a href="{% url 'threads_detail' thread.id %}">
-      {{ thread.title }}
-    </a>
+  <a class="list-group-item list-group-item-action"  href="{% url 'threads_detail' thread.id %}">
+    <span class="text-primary">{{ thread.title }}</span>
     <br>
     <small>created by <b>{{ thread.author.username }}</b> on {{ thread.created }}</small>
-  </li>
+  </a>
 {% empty %}
   Nothing here...
 {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
