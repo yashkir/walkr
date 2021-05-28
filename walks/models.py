@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from forums.models import Thread, get_comments_forum
+import uuid
 
 User = get_user_model()
 
