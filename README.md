@@ -1,19 +1,17 @@
 # walkR
 
-A place for creating, sharing, and viewing guided walks.
+A place for creating, sharing, and viewing guided walks. Users
+can create walks and add stops with pictures to them.
 
-Includes a forum to discuss walks.
+Includes a forum to discuss walks and other topics.
 
-## Try it
+## Screenshots
+![mobile](https://imgur.com/CGJWtfU.png)
 
-[Heroku](https://randy-walkr.herokuapp.com/)
+## Getting Started
 
-## Features
-
-- Create guided walks
-- View other's guided walks
-- Comment on walks
-- Talk about various topics in the forums
+- [Heroku](https://randy-walkr.herokuapp.com/)
+- [Trello](https://trello.com/b/FAT1QWYD/randy)
 
 ## Technologies
 
@@ -22,3 +20,9 @@ Includes a forum to discuss walks.
 - Gunicorn
 - Bootstrap4
 - S3
+
+## Next Steps
+
+- Integrate GPS with Stops
+- Locate nearby walks
+- email notifications of nearby walks
