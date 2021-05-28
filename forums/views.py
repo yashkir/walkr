@@ -43,7 +43,7 @@ class ThreadCreate(LoginRequiredMixin, CreateView):
         return reverse('threads_detail', kwargs={ 'pk': self.object.id })
 
 
-class ThreadDelete(LoginRequiredMixin, DeleteView):
+class ThreadDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Thread
 
     def test_func(self):
