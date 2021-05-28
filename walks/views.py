@@ -1,15 +1,14 @@
 from typing import DefaultDict
-from django.views import View
 from .models import Walk, Stop, Picture
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 
-class WalkCreate(CreateView):
+class WalkCreate(LoginRequiredMixin, CreateView):
     template_name="walk_form.html"
     model = Walk
     fields = ['title', 'description', 'is_public']
@@ -32,7 +31,7 @@ class WalkDetail(DetailView):
         return obj
 
 
-class WalkEdit(UpdateView):
+class WalkEdit(LoginRequiredMixin, UpdateView):
     model = Walk
     template_name = 'walk_update_form.html'
     fields = ['title','description', 'is_public']
@@ -42,7 +41,7 @@ class WalkEdit(UpdateView):
         return obj
 
 
-class WalkDelete(DeleteView):
+class WalkDelete(LoginRequiredMixin, DeleteView):
     model = Walk
     template_name = 'walk_confirm_delete.html'
 
@@ -64,7 +63,7 @@ class WalksList(ListView):
         return context
 
 
-class PictureCreate(CreateView):
+class PictureCreate(LoginRequiredMixin, CreateView):
     model = Picture
     template_name = 'add_picture.html'
     fields = ['title', 'image']
@@ -83,7 +82,7 @@ class PictureCreate(CreateView):
         return super().form_valid(form)
 
 
-class StopCreate(CreateView):
+class StopCreate(LoginRequiredMixin, CreateView):
     model = Stop
     template_name = "stop_form.html"
     fields = ['title','description', 'location_text', 'order']
@@ -128,7 +127,7 @@ class StopDetail(DetailView):
         return obj
 
 
-class StopEdit(UpdateView):
+class StopEdit(LoginRequiredMixin, UpdateView):
     model = Stop
     template_name = 'stop_update_form.html'
     fields = ['title','description', 'location_text', 'order']
@@ -138,7 +137,7 @@ class StopEdit(UpdateView):
         return obj
 
 
-class StopDelete(DeleteView):
+class StopDelete(LoginRequiredMixin, DeleteView):
     model = Stop
     template_name = 'stop_confirm_delete.html'
 

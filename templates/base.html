@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>walkrR - {% block title %}{% endblock %}</title>
   {% bootstrap_css %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 {% with path_string=request.path %}
 {% if 'view_walk' in path_string %}
