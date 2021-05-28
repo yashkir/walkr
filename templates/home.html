@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>walkR</h1>
+<div class="jumbotron">
+  <h1 class="display-1 text-center">walk<span class="text-primary">R</span></h1>
 
-<p>A place for creating, sharing, and viewing guided walks.</p>
+  <p class="lead">A place for creating, sharing, and viewing guided walks. A place for
+  discussion and connection.</p>
 
-<a href="{% url 'login' %}">Log In</a>
-<br>
-<a href="{% url 'register' %}">Register</a>
+  <hr class="my-4">
+
+  <p>
+    Check out the <a href="{% url 'walks_home' %}">Walks</a> other people have
+    made or take a look at the <a href="{% url 'forums_home' %}">Forums</a> to
+    see what people are discussing. When you are ready to participate, just
+    <a href="{% url 'register' %}">Register</a> and <a href="{% url 'login' %}">Log In</a>.
+  </p>
+
+  <div class="mt-5 w-100 d-flex justify-content-center">
+    <a class="btn btn-primary h5 mx-1" href="{% url 'walks_home' %}">Walks</a>
+    <a class="btn btn-primary h5 mx-1" href="{% url 'forums_home' %}">Forums</a>
+    <a class="btn btn-primary h5 mx-1" href="{% url 'register' %}">Register</a>
+    <a class="btn btn-primary h5 mx-1" href="{% url 'login' %}">Log&nbspIn</a>
+  </div>
+</div>
 {% endblock %}
