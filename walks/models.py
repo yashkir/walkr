@@ -3,8 +3,13 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from forums.models import Thread, get_comments_forum
+import uuid
 
 User = get_user_model()
+
+
+def make_unique_picture_filename(instance, filename):
+    return uuid.uuid4().hex[:6] + filename[filename.rfind('.'):]
 
 
 class Walk(models.Model):
@@ -58,7 +63,7 @@ class Picture(models.Model):
     '''An illustration of a Stop.'''
     stop = models.ForeignKey(Stop, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
-    image = models.ImageField()
+    image = models.ImageField(upload_to=make_unique_picture_filename)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
