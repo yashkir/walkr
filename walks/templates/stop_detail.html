@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-Add Picture
+Stop {{ stop.title }}
 {% endblock %}
 {% block content %}
 
@@ -108,7 +108,13 @@ Add Picture
 {% endif %}
 {% if stop.walk.user == user or user.is_staff == True or stop.walk.is_public == True%}
 <div class="mt-3 pb-4">
-    <a class = "btn btn-primary float-right" href="{% url 'create_picture' stop.walk.id stop.id %}"> Add Picture</a>
+  {% if stop.walk.user == user or user.is_staff == True %}
+  <a class = "btn btn-warning float-right mx-1" href="{% url 'delete_stop' stop.walk.id stop.id %}">Delete</a>
+  <a class = "btn btn-secondary float-right mx-1" href="{% url 'edit_stop' stop.walk.id stop.id %}">Edit</a>
+  {% endif %}
+  {% if stop.walk.is_public == True %}
+  <a class = "btn btn-primary float-right mx-1" href="{% url 'create_picture' stop.walk.id stop.id %}">Add Picture</a>
+  {% endif %}
 </div>
 {% else %}
 <p> Not able to add pictures </p>
