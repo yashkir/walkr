@@ -8,16 +8,14 @@ Forums
 
 <hr>
 
-<ul class="list-group">
+<div class="list-group">
 {% for forum in forum_list %}
-  <li class="list-group-item">
-    <a href="{% url 'forums_detail' forum.id %}">
-      {{ forum.title }}
-    </a>
+  <a class="list-group-item list-group-item-action" href="{% url 'forums_detail' forum.id %}">
+    <span class="h5 text-primary">{{ forum.title }}</span>
     <br>
     <small>{{ forum.description }}</small>
-  </li>
+  </a>
 {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
