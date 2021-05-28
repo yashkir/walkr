@@ -3,23 +3,31 @@
 Profile
 {% endblock %}
 {% block content %}
-<h1>Walks</h1>
-<ul class="list-group">
+<h1 class="title-caption">Walks</h1>
 {% for walk in object_list %}
-<li style="opacity:0.8" class="list-group-item">
-    <a href= "{% url 'walk_detail' walk.id %}">
-            {{ walk.title }} - {{ walk.description }}
-        </a>
+<div >
+    {% if walk.is_public == False %} 
         {% if walk.user == user or user.is_staff == True %}
-        <div class="float-right">
-            <a class="badge badge-secondary" href="{% url 'walk_edit' walk.id %}">EDIT</a>
-            <a class="badge badge-warning" href="{% url 'walk_delete' walk.id %}">DELETE</a>
-        </div>
+        <a style="opacity:0.9"class="list-group-item" href= "{% url 'walk_detail' walk.id %}">
+            {{ walk.title }}<br> <small>
+                {{ walk.description }}
+            </small>
         {% endif %}
-    </li>
-{% empty %}
+    {% else %}
+    <a style="opacity:0.9"class="list-group-item" href= "{% url 'walk_detail' walk.id %}">
+        {{ walk.title }}<br> <small>
+            {{ walk.description }}
+        </small>
+    {% endif %}
+        {% if walk.user == user or user.is_staff == True %}
+        <a style="z-index: 11; top :-4.5vh" class="badge rounded-pill list-group-item d-inline bg-warning badge-warning float-right text-center mr-3" href="{% url 'walk_delete' walk.id %}">DELETE</a>
+        <a style="z-index: 11; top: -4.5vh" class="badge rounded-pill list-group-item d-inline bg-dark badge-secondary float-right text-center mr-3" href="{% url 'walk_edit' walk.id %}">EDIT</a>
+        {% endif %}
+    </a>
+</div>
+    {% empty %}
     <li>No Walks Yet!</li>
-{% endfor %}
-<a href="{% url 'create_walk' %}" class="btn btn-primary mt-3">Create Walk</a>
-</ul>
-{% endblock %}
+    {% endfor %}
+    <a href="{% url 'create_walk' %}" class="btn btn-primary mt-3">Create Walk</a>
+    {% endblock %}
+    

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+Delete Stop
+{% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'walk_detail' picture.stop.walk.id %}">{{picture.stop.walk.title}}</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'stop_detail' picture.stop.walk.id picture.stop.id %}">{{picture.stop.title}}</a></li>
+          <li class="breadcrumb-item active">
+            Delete Picture
+          </li>
+        </ol>
+      </nav>
+</div>
+
+
+<h1>Delete Stop</h1>
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete:</p>
+    <img class="d-block img-thumbnail" src="{{picture.image.url}}">
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock %}

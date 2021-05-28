@@ -3,60 +3,53 @@
 {{walk.title}}
 {% endblock %}
 {% block content %}
-
-    <div>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">{{walk.title}}</li>
-            </ol>
-        </nav>
-    </div>
     
-    
-    <div class = "container-fluid text-light bg-dark">
-
-        <h1>{{walk.title}} Details
+<h1 class="title-caption">{{walk.title|upper}}</h1>
+<div class="shadow text-dark bg-light text-center2 mt-4">
+        <h4 class="d-inline">
             {% if walk.user == user or user.is_staff == True %}
             <div class="float-right">
                 <a class="badge badge-secondary" href="{% url 'walk_edit' walk.id %}">EDIT</a>
                 <a class="badge badge-warning" href="{% url 'walk_delete' walk.id %}">DELETE</a>
             </div>
-            {% endif %}</h1>
-        <h2> Description:</h2>
-        <h4>{{walk.description}}</h4>
+            {% endif %}</h4>
+        <h2>{{walk.description}}</h2>
         {% if walk.is_public == True %}
-    <p> Public Walk by {{walk.user}}</p>
+            {% if walk.description == "" %}
+                 <p class="text-right pt-5"> Public Walk by {{walk.user}}</p>
+            {% else %}
+                <p class="text-right p-3"> Public Walk by {{walk.user}}</p>
+            {% endif %}
     {% else %}
-    <p> Private Walk by {{walk.user}}</p>
+        {% if walk.description == "" %}
+            <p class="text-right pt-5"> Private Walk by {{walk.user}}</p>
+        {% else %}
+            <p class="text-right p-3"> Private Walk by {{walk.user}}</p>
+        {% endif %}
     {% endif %}
-    </div>
+</div>
+<div class="shadow-sm">
+
+    {% for stop in walk.stop_set.all %}
+    <a style="opacity:0.9"class="list-group-item" href= "{% url 'stop_detail' stop.walk.id stop.id%}">
+        {{ stop.title }}<br> 
+        <small>{{ stop.description }}</small>
+        {% if walk.user == user or user.is_staff == True %}
+        <a style="z-index: 11; top :-4.5vh" class="badge rounded-pill list-group-item d-inline bg-warning badge-warning float-right text-center mr-3" href="{% url 'delete_stop' stop.walk.id stop.id %}">DELETE</a>
+        <a style="z-index: 11; top: -4.5vh" class="badge rounded-pill list-group-item d-inline bg-dark badge-secondary float-right text-center mr-3" href="{% url 'edit_stop' stop.walk.id stop.id%}">EDIT</a>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
     
-    <table style ="opacity:0.8"class="table text-center text-light bg-dark table-hover table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Stop Name</th>
-                <th scope="col" >Stop Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for stop in walk.stop_set.all %}
-            <tr onclick="location.href='{% url 'stop_detail' stop.walk.id stop.id %}'">
-                <td>{{stop.title}}</td>
-                <td>{{stop.description}}</td>
-                {% if user == walk.user or user.is_staff == True%}
-                <td><a class="badge badge-secondary" href="{% url 'edit_stop' stop.walk.id stop.id %}">Edit</a></td>
-                <td><a class="badge badge-warning" href="{% url 'delete_stop' stop.walk.id stop.id %}">Delete</a></td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    {% if walk.comment_thread %}
-    <a class="btn btn-primary" href="{% url 'threads_detail' walk.comment_thread.id %}">View Comments...</a>
-    {% endif %}
-
-    {% if user == walk.user or user.is_staff == True or walk.is_public == True%}
-    <a href='/walks/{{walk.id}}/add_stop/'  class="btn btn-primary float-right">Create Stop</a>
-    {% endif %}
+    <div class="flex-row justify-content-between mt-3">
+        {% if walk.comment_thread %}
+        <a class="btn btn-info p-2" href="{% url 'threads_detail' walk.comment_thread.id %}">View Comments...</a>
+        {% endif %}
+        
+        {% if user == walk.user or user.is_staff == True or walk.is_public == True%}
+        <a href='/walks/{{walk.id}}/add_stop/'  class="btn btn-primary p-2">Create Stop</a>
+        {% endif %}
+    </div>
     {% endblock %}
+    

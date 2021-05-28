@@ -5,6 +5,17 @@ Edit Stop
 {% block content %}
 
 {% load bootstrap4 %}
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'walk_detail' stop.walk.id%}">{{stop.walk.title}}</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'stop_detail' stop.walk.id stop.id%}">{{stop.title}}</a></li>
+          <li class="breadcrumb-item active">
+            Update {{ stop.title }} in {{stop.walk.title}}
+          </li>
+        </ol>
+      </nav>
+</div>
 
 <h1>{{user.username}} <span class="text-info">Change Stop Details</span></h1>
 <form method="post">{% csrf_token %}
