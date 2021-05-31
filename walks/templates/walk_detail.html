@@ -4,9 +4,8 @@
 {% endblock %}
 {% block content %}
     
-<h1 ><i>Walk:</i> {{walk.title}}</h1>
-<div class="card p-3 mb-4 shadow text-dark bg-light text-center2 mt-4">
-  <div class="card-body">
+<h1 class="title-caption">{{walk.title|upper}}</h1>
+<div class="shadow text-dark bg-light text-center2 mt-4">
         <h4 class="d-inline">
             {% if walk.user == user or user.is_staff == True %}
             <div class="float-right">
@@ -15,12 +14,12 @@
             </div>
             {% endif %}</h4>
         <h2>{{walk.description}}</h2>
-    {% if walk.is_public == True %}
-        {% if walk.description == "" %}
-             <p class="text-right pt-5"> Public Walk by {{walk.user}}</p>
-        {% else %}
-            <p class="text-right p-3"> Public Walk by {{walk.user}}</p>
-        {% endif %}
+        {% if walk.is_public == True %}
+            {% if walk.description == "" %}
+                 <p class="text-right pt-5"> Public Walk by {{walk.user}}</p>
+            {% else %}
+                <p class="text-right p-3"> Public Walk by {{walk.user}}</p>
+            {% endif %}
     {% else %}
         {% if walk.description == "" %}
             <p class="text-right pt-5"> Private Walk by {{walk.user}}</p>
@@ -28,25 +27,22 @@
             <p class="text-right p-3"> Private Walk by {{walk.user}}</p>
         {% endif %}
     {% endif %}
-  </div>
 </div>
+<div class="shadow-sm">
 
-<h4>Stops on this Walk:</h4>
-<hr>
-<div class="list-group shadow-sm">
     {% for stop in walk.stop_set.all %}
-    <a class="list-group-item list-group-item-action" href= "{% url 'stop_detail' stop.walk.id stop.id%}">
-      <span class="h5">{{ stop.title }}</span><br>
+    <a style="opacity:0.9"class="list-group-item" href= "{% url 'stop_detail' stop.walk.id stop.id%}">
+        {{ stop.title }}<br> 
         <small>{{ stop.description }}</small>
+        {% if walk.user == user or user.is_staff == True %}
+        <a style="z-index: 11; top :-4.5vh" class="badge rounded-pill list-group-item d-inline bg-warning badge-warning float-right text-center mr-3" href="{% url 'delete_stop' stop.walk.id stop.id %}">DELETE</a>
+        <a style="z-index: 11; top: -4.5vh" class="badge rounded-pill list-group-item d-inline bg-dark badge-secondary float-right text-center mr-3" href="{% url 'edit_stop' stop.walk.id stop.id%}">EDIT</a>
+        {% endif %}
     </a>
-    {% empty %}
-    <div class="p-2">
-    There are no stops...
-    </div>
     {% endfor %}
 </div>
     
-    <div class="mt-2 float-left">
+    <div class="flex-row justify-content-between mt-3">
         {% if walk.comment_thread %}
         <a class="btn btn-info p-2" href="{% url 'threads_detail' walk.comment_thread.id %}">View Comments...</a>
         {% endif %}
